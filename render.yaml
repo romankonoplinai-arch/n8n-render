@@ -4,8 +4,9 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     plan: starter
+    region: frankfurt
     envVars:
-      # базовые настройки
+      # Основные настройки n8n
       - key: N8N_HOST
         value: "0.0.0.0"
       - key: N8N_PORT
@@ -13,22 +14,38 @@ services:
       - key: N8N_PROTOCOL
         value: "https"
       - key: N8N_ENCRYPTION_KEY
-        value: "matrix2025key"
+        value: "matrix2025key-HMAC-bx84Qk92Zl01pR7x"
       - key: GENERIC_TIMEZONE
         value: "Europe/Moscow"
       - key: N8N_SECURE_COOKIE
         value: "false"
 
-      # укажи тип БД и доступы (замени на свои)
+      # Подключение PostgreSQL
       - key: DB_TYPE
         value: "postgresdb"
       - key: DB_POSTGRESDB_HOST
-        value: "<HOST>"
-      - key: DB_POSTGRESDB_DATABASE
-        value: "<DATABASE>"
-      - key: DB_POSTGRESDB_USER
-        value: "<USER>"
-      - key: DB_POSTGRESDB_PASSWORD
-        value: "<PASSWORD>"
+        value: "dpg-d3omuk9c44c738av660-a"
       - key: DB_POSTGRESDB_PORT
         value: "5432"
+      - key: DB_POSTGRESDB_DATABASE
+        value: "n8n_postgres_bq5x"
+      - key: DB_POSTGRESDB_USER
+        value: "n8n_postgres_bq5x_user"
+      - key: DB_POSTGRESDB_PASSWORD
+        value: "ZeiC7XBvR4m6OtZ21lKXOi9MPDxUfBEdh"
+
+      # Авторизация в веб-интерфейсе n8n
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        value: "admin"
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value: "E4uid010101"
+
+      # Отключаем аналитику и сбор данных
+      - key: N8N_PERSONALIZATION_ENABLED
+        value: "false"
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: "false"
+      - key: N8N_USER_MANAGEMENT_DISABLED
+        value: "true"
