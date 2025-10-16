@@ -49,4 +49,3 @@ services:
         value: "false"
       - key: N8N_USER_MANAGEMENT_DISABLED
         value: "true"
-        
