@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: n8n
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter  # you can change to free, starter, standard, etc.
+    envVars:
+      - key: N8N_HOST
+        value: "0.0.0.0"
+      - key: N8N_PORT
+        value: "5678"
+      - key: N8N_PROTOCOL
+        value: "https"
+      - key: N8N_ENCRYPTION_KEY
+        value: "matrix2025key-change-me"
+      - key: GENERIC_TIMEZONE
+        value: "Europe/Moscow"
+      - key: N8N_SECURE_COOKIE
+        value: "false"
+    disk:
+      name: n8n-data
+      mountPath: /home/node/.n8n
+      sizeGB: 1

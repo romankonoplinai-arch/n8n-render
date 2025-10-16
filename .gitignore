@@ -1,0 +1,9 @@
+# Node / general
+node_modules
+.env
+.env.*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
