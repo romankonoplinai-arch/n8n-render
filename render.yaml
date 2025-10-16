@@ -3,8 +3,9 @@ services:
     name: n8n
     env: docker
     dockerfilePath: ./Dockerfile
-    plan: starter  # you can change to free, starter, standard, etc.
+    plan: starter
     envVars:
+      # базовые настройки
       - key: N8N_HOST
         value: "0.0.0.0"
       - key: N8N_PORT
@@ -12,12 +13,22 @@ services:
       - key: N8N_PROTOCOL
         value: "https"
       - key: N8N_ENCRYPTION_KEY
-        value: "matrix2025key-change-me"
+        value: "matrix2025key"
       - key: GENERIC_TIMEZONE
         value: "Europe/Moscow"
       - key: N8N_SECURE_COOKIE
         value: "false"
-    disk:
-      name: n8n-data
-      mountPath: /home/node/.n8n
-      sizeGB: 1
+
+      # укажи тип БД и доступы (замени на свои)
+      - key: DB_TYPE
+        value: "postgresdb"
+      - key: DB_POSTGRESDB_HOST
+        value: "<HOST>"
+      - key: DB_POSTGRESDB_DATABASE
+        value: "<DATABASE>"
+      - key: DB_POSTGRESDB_USER
+        value: "<USER>"
+      - key: DB_POSTGRESDB_PASSWORD
+        value: "<PASSWORD>"
+      - key: DB_POSTGRESDB_PORT
+        value: "5432"
