@@ -14,7 +14,7 @@ services:
       - key: N8N_PROTOCOL
         value: "https"
       - key: N8N_ENCRYPTION_KEY
-        value: "matrix2025key-HMAC-bx84Qk92Zl01pR7x"
+        value: "E4uid010101"
       - key: GENERIC_TIMEZONE
         value: "Europe/Moscow"
       - key: N8N_SECURE_COOKIE
