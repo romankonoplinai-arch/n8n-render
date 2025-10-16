@@ -1,61 +1,44 @@
 services:
-  # --- Веб-сервис n8n ---
   - type: web
     name: n8n
     env: docker
-    dockerfilePath: ./Dockerfile
     plan: starter
     region: frankfurt
-
+    dockerfilePath: ./Dockerfile
     envVars:
       # --- Основные настройки n8n ---
       - key: N8N_HOST
-        value: "0.0.0.0"
+        value: 0.0.0.0
       - key: N8N_PORT
-        value: "5678"
+        value: 5678
       - key: N8N_PROTOCOL
-        value: "https"
+        value: https
       - key: N8N_ENCRYPTION_KEY
-        value: "E4uid010101"
+        value: E4uid010101
       - key: GENERIC_TIMEZONE
-        value: "Europe/Moscow"
+        value: Europe/Moscow
       - key: N8N_SECURE_COOKIE
         value: "false"
-      - key: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
-        value: "true"
-
-      # --- Авторизация в веб-интерфейсе n8n ---
       - key: N8N_BASIC_AUTH_ACTIVE
         value: "true"
-      - key: N8N_BASIC_AUTH_USER
-        value: "admin"
-      - key: N8N_BASIC_AUTH_PASSWORD
-        value: "E4uid010101"
-
-      # --- Подключение к PostgreSQL ---
-      - key: DB_TYPE
-        value: "postgresdb"
-      - key: DB_POSTGRESDB_HOST
-        value: "dpg-d3omnuk9c44c738av660-a"
-      - key: DB_POSTGRESDB_PORT
-        value: "5432"
-      - key: DB_POSTGRESDB_DATABASE
-        value: "n8n_postgres_bq5x"
-      - key: DB_POSTGRESDB_USER
-        value: "n8n_postgres_bq5x_user"
-      - key: DB_POSTGRESDB_PASSWORD
-        value: "ZeiC7XBvR4m6QtTz21KXOi9MPDxUFbEDh"
-
-      # --- Поведение при обновлениях ---
-      - key: N8N_VERSION_NOTIFICATIONS_ENABLED
-        value: "false"
+      - key: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+        value: "true"
       - key: N8N_DIAGNOSTICS_ENABLED
         value: "false"
-      - key: N8N_HIRING_BANNER_ENABLED
-        value: "false"
+      - key: WEBHOOK_URL
+        value: https://n8n-render-30ic.onrender.com/
+      - key: N8N_EDITOR_BASE_URL
+        value: https://n8n-render-30ic.onrender.com/
+      
+      # --- Подключение PostgreSQL ---
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_CONNECTION_URL
+        # 👇 ВСТАВЬ СВОЙ ПОЛНЫЙ EXTERNAL DATABASE URL сюда!
+        value: postgres://n8n_postgres_bq5x_user:ZeiC7XRv4m6...@dpg-d3omnu...frankfurt-postgres.render.com/n8n_postgres_bq5x
 
-# --- PostgreSQL база (создаётся отдельно, если не существует) ---
-databases:
-  - name: n8n_postgres
-    plan: free
-    region: frankfurt
+      # --- Права и стабильность ---
+      - key: N8N_RELEASE_TYPE
+        value: stable
+      - key: NODE_ENV
+        value: production
