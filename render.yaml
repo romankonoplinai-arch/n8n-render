@@ -1,4 +1,5 @@
 services:
+  # --- Веб-сервис n8n ---
   - type: web
     name: n8n
     env: docker
@@ -7,7 +8,7 @@ services:
     region: frankfurt
 
     envVars:
-      # Основные настройки n8n
+      # --- Основные настройки n8n ---
       - key: N8N_HOST
         value: "0.0.0.0"
       - key: N8N_PORT
@@ -23,7 +24,15 @@ services:
       - key: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
         value: "true"
 
-      # Подключение PostgreSQL
+      # --- Авторизация в веб-интерфейсе n8n ---
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        value: "admin"
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value: "E4uid010101"
+
+      # --- Подключение к PostgreSQL ---
       - key: DB_TYPE
         value: "postgresdb"
       - key: DB_POSTGRESDB_HOST
@@ -37,10 +46,16 @@ services:
       - key: DB_POSTGRESDB_PASSWORD
         value: "ZeiC7XBvR4m6QtTz21KXOi9MPDxUFbEDh"
 
-      # Авторизация в веб-интерфейсе n8n
-      - key: N8N_BASIC_AUTH_ACTIVE
-        value: "true"
-      - key: N8N_BASIC_AUTH_USER
-        value: "admin"
-      - key: N8N_BASIC_AUTH_PASSWORD
-        value: "matrix2025"
+      # --- Поведение при обновлениях ---
+      - key: N8N_VERSION_NOTIFICATIONS_ENABLED
+        value: "false"
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: "false"
+      - key: N8N_HIRING_BANNER_ENABLED
+        value: "false"
+
+# --- PostgreSQL база (создаётся отдельно, если не существует) ---
+databases:
+  - name: n8n_postgres
+    plan: free
+    region: frankfurt
