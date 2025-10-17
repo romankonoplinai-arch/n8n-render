@@ -1,0 +1,63 @@
+services:
+  - type: web
+    name: n8n-render
+    env: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: n8n start
+    envVars:
+      # === Database config ===
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_DATABASE
+        value: n8n_postgres_bq5x
+      - key: DB_POSTGRESDB_HOST
+        value: dpg-d3omnuk9c44c738av660-a.frankfurt-postgres.render.com
+      - key: DB_POSTGRESDB_PORT
+        value: 5432
+      - key: DB_POSTGRESDB_USER
+        value: n8n_postgres_bq5x_user
+      - key: DB_POSTGRESDB_PASSWORD
+        value: ZeiC7XBvR4m6QTz21KXOigMPDxUFbEDh
+      - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
+        value: "false"
+
+      # === n8n security & config ===
+      - key: N8N_ENCRYPTION_KEY
+        value: E4uid010101
+      - key: N8N_RUNNERS_ENABLED
+        value: "true"
+      - key: N8N_BLOCK_ENV_ACCESS_IN_NODE
+        value: "false"
+      - key: N8N_GIT_NODE_DISABLE_BARE_REPOS
+        value: "true"
+      - key: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+        value: "true"
+      - key: GENERIC_TIMEZONE
+        value: Europe/Moscow
+      - key: N8N_PERSONALIZATION_ENABLED
+        value: "false"
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: "false"
+
+      # === Execution save rules ===
+      - key: EXECUTIONS_DATA_SAVE_ON_ERROR
+        value: all
+      - key: EXECUTIONS_DATA_SAVE_ON_SUCCESS
+        value: all
+
+      # === Render-specific ===
+      - key: NODE_ENV
+        value: production
+      - key: N8N_PORT
+        value: 10000
+      - key: N8N_PROTOCOL
+        value: https
+
+    disk:
+      name: n8n_data
+      mountPath: /home/node/.n8n
+      sizeGB: 1
+
+    autoDeploy: true
